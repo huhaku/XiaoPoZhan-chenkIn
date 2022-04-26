@@ -14,9 +14,15 @@ import top.misec.push.model.PushMetaInfo;
  */
 public class GotifyPush extends AbstractPush {
 
+    /**
+     * 生成推送URL
+     *
+     * @param metaInfo 元信息
+     * @return URL字符串
+     */
     @Override
     protected String generatePushUrl(PushMetaInfo metaInfo) {
-        return metaInfo.getToken() + "/sendMessage";
+        return metaInfo.getToken() + "/message?token=" + metaInfo.getChatId();
     }
 
     @Override
@@ -35,7 +41,7 @@ public class GotifyPush extends AbstractPush {
 
     @Override
     protected String generatePushBody(PushMetaInfo metaInfo, String content) {
-        return "token=" + metaInfo.getChatId() + "&priority=7&title=BILIBILI-HELPER任务简报&message="+content;
+        return "priority=7&title=BILIBILI-HELPER任务简报&message=" + content;
 
     }
 }

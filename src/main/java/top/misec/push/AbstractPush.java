@@ -111,6 +111,7 @@ public abstract class AbstractPush implements Push, RetryListener {
      */
     protected abstract String generatePushUrl(final PushMetaInfo metaInfo);
 
+
     /**
      * 检查推送结果
      *
