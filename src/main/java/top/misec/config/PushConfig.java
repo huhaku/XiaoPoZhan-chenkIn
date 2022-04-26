@@ -8,15 +8,7 @@ import org.apache.http.HttpHost;
 import lombok.Data;
 import lombok.Getter;
 import top.misec.push.Push;
-import top.misec.push.impl.DingTalkPush;
-import top.misec.push.impl.DingTalkSecretPush;
-import top.misec.push.impl.PushPlusPush;
-import top.misec.push.impl.ServerChanPush;
-import top.misec.push.impl.ServerChanTurboPush;
-import top.misec.push.impl.TelegramCustomUrlPush;
-import top.misec.push.impl.TelegramPush;
-import top.misec.push.impl.WeComAppPush;
-import top.misec.push.impl.WeComPush;
+import top.misec.push.impl.*;
 import top.misec.push.model.PushMetaInfo;
 
 /**
@@ -127,6 +119,17 @@ public class PushConfig {
      */
     private String WE_COM_APP_MEDIA_ID;
 
+    /**
+     * Gotify推送地址
+     */
+    private String GOTIFY_PUSH_URL;
+
+    /**
+     * Gotify推送app token
+     */
+    private String GOTIFY_TOKEN;
+
+
     public PushInfo getPushInfo() {
         if (StringUtils.isNoneBlank(TG_BOT_TOKEN, TG_USER_ID) && Boolean.TRUE.equals(TG_USE_CUSTOM_URL)) {
             return new PushInfo(new TelegramCustomUrlPush(), TG_BOT_TOKEN, TG_USER_ID);
@@ -146,6 +149,8 @@ public class PushConfig {
             return new PushInfo(new ServerChanPush(), SC_KEY);
         } else if (StringUtils.isNoneBlank(WE_COM_APP_CORP_SECRET, WE_COM_APP_CORPID) && null != WE_COM_APP_AGENT_ID) {
             return new PushInfo(new WeComAppPush(), WE_COM_APP_CORPID, null, WE_COM_APP_CORP_SECRET, WE_COM_APP_AGENT_ID, WE_COM_APP_TO_USER, WE_COM_APP_MEDIA_ID);
+        } else if (StringUtils.isNoneBlank(GOTIFY_PUSH_URL)) {
+            return new PushInfo(new GotifyPush(), GOTIFY_PUSH_URL,GOTIFY_TOKEN);
         } else {
             return null;
         }

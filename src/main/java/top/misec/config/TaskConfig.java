@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class TaskConfig {
+    public Boolean isVip;
     public Boolean skipDailyTask;
     public Boolean monthEndAutoCharge;
     public Boolean giveGift;

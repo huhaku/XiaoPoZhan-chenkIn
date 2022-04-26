@@ -92,4 +92,20 @@ public class OftenApi {
         return userName;
     }
 
+    /**
+     * 用接口读当前视频时长,读不到返回0
+     * 只读第一个分P
+     * @param bvid
+     */
+    public static Integer getVideoTime(String bvid) {
+        Integer time = 0;
+        String urlParameter = "?bvid=" + bvid;
+        JsonObject jsonObject = HttpUtils.doGet(ApiList.GET_VEDIO_DATA_BY_BVID + urlParameter);
+        if (jsonObject.get("code").getAsInt() == 0) {
+           time = jsonObject.getAsJsonArray("data").get(0).getAsJsonObject().get("duration").getAsInt();
+        } else {
+            log.info("读取{}视频时长失败，原因：{}", bvid,jsonObject);
+        }
+        return time;
+    }
 }

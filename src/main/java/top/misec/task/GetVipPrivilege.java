@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import top.misec.api.ApiList;
 import top.misec.api.OftenApi;
+import top.misec.config.ConfigLoader;
 import top.misec.utils.GsonUtils;
 import top.misec.utils.HttpUtils;
 
@@ -36,6 +37,10 @@ public class GetVipPrivilege implements Task {
 
     @Override
     public void run() {
+        if (null != ConfigLoader.helperConfig.getTaskConfig().getIsVip() || !Boolean.TRUE.equals(ConfigLoader.helperConfig.getTaskConfig().getIsVip())) {
+            log.info("你不是大会员,自动跳开大会员任务");
+            return;
+        }
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         int day = cal.get(Calendar.DATE);
 

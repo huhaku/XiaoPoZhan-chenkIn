@@ -33,6 +33,7 @@ public class VideoWatch implements Task {
             log.info("本日观看视频任务已经完成了，不需要再观看视频了");
         }
 
+
         if (!dailyTaskStatus.get("share").getAsBoolean()) {
             dailyAvShare(bvid);
         } else {
@@ -46,7 +47,11 @@ public class VideoWatch implements Task {
     }
 
     public void watchVideo(String bvid) {
-        int playedTime = new Random().nextInt(90) + 1;
+        Integer videoTime = OftenApi.getVideoTime(bvid);
+        if (0 >= videoTime) {
+            videoTime = 20;
+        }
+        int playedTime = new Random().nextInt(videoTime) + 10;
         String postBody = "bvid=" + bvid
                 + "&played_time=" + playedTime;
         JsonObject resultJson = HttpUtils.doPost(ApiList.VIDEO_HEARTBEAT, postBody);

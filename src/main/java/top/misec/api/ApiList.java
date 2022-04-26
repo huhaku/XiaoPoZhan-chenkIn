@@ -80,4 +80,11 @@ public class ApiList {
 
     public static final String QUERY_MATCH_INFO = "https://api.bilibili.com/x/esports/guess/collection/statis";
     public static final String DO_MATCH_ADD = "https://api.bilibili.com/x/esports/guess/add";
+
+    /**
+     * 获取视频详细信息(web端)
+     */
+
+    public static final String GET_VEDIO_DATA_BY_BVID = "http://api.bilibili.com/x/player/pagelist";
+
 }

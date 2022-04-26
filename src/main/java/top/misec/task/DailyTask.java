@@ -3,6 +3,7 @@ package top.misec.task;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import top.misec.api.ApiList;
+import top.misec.config.ConfigLoader;
 import top.misec.utils.HttpUtils;
 import top.misec.utils.SleepTime;
 
@@ -27,18 +28,25 @@ public class DailyTask {
     public DailyTask() {
         dailyTasks = new ArrayList<>();
         dailyTasks.add(new VideoWatch());
+        dailyTasks.add(new TodayVideoWatch());
+        dailyTasks.add(new TodayVideoWatch());
         dailyTasks.add(new MangaSign());
         dailyTasks.add(new CoinAdd());
         dailyTasks.add(new Silver2Coin());
         dailyTasks.add(new LiveChecking());
         dailyTasks.add(new GiveGift());
-        dailyTasks.add(new ChargeMe());
-        dailyTasks.add(new GetVipPrivilege());
+        if (null != ConfigLoader.helperConfig.getTaskConfig().getIsVip() || !Boolean.TRUE.equals(ConfigLoader.helperConfig.getTaskConfig().getIsVip())) {
+            log.info("你不是大会员,自动跳开大会员任务");
+        } else {
+            dailyTasks.add(new ChargeMe());
+            dailyTasks.add(new GetVipPrivilege());
+        }
         dailyTasks.add(new MatchGame());
         dailyTasks.add(new MangaRead());
         Collections.shuffle(dailyTasks);
         dailyTasks.add(0, new UserCheck());
         dailyTasks.add(1, new CoinLogs());
+        dailyTasks.add(new TodayVideoWatch());
     }
 
     /**

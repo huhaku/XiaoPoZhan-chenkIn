@@ -20,6 +20,10 @@ public class SleepTime {
             defaultTime = 10;
         }
 
+        sleepDefault(defaultTime);
+    }
+
+    public void sleepDefault(Integer defaultTime) {
         Random random = new Random();
         int sleepTime = (int) ((random.nextDouble() + 0.5) * defaultTime * 1000);
         log.info("-----随机暂停{}ms-----\n", sleepTime);

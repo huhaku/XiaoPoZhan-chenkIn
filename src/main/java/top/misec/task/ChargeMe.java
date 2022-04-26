@@ -29,6 +29,11 @@ public class ChargeMe implements Task {
 
     @Override
     public void run() {
+        if (null != ConfigLoader.helperConfig.getTaskConfig().getIsVip() || !Boolean.TRUE.equals(ConfigLoader.helperConfig.getTaskConfig().getIsVip())) {
+            log.info("你不是大会员,自动跳开大会员任务");
+            return;
+        }
+
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         int day = cal.get(Calendar.DATE);
         //被充电用户的userID
