@@ -25,8 +25,8 @@ public class TodayVideoWatch extends VideoWatch {
 
     @Override
     public void run() {
-        int seeNum = new Random().nextInt(2);
-        log.info("随机观看{}个视频",seeNum);
+        int seeNum = new Random().nextInt(3) + 1;
+        log.info("随机观看{}个视频", seeNum);
         for (int i = 0; i < seeNum; i++) {
             String bvid = getVideoId.getRegionRankingVideoBvid();
             watchVideo(bvid);
